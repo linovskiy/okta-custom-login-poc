@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  frontend:
+#    image: okta-test
+    container_name: "okta-test"
+    build: .
+    env_file:
+      - ./.env
+    ports:
+      - '80:8000'
+    volumes:
+      - ./src:/app/src:ro
+      - ./public://app/public:ro
+    networks:
+      - webnet
+networks:
+  webnet:

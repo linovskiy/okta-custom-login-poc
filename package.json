@@ -1,0 +1,27 @@
+{
+  "name": "okta-custom-login-test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@okta/okta-signin-widget": "^2.1.0",
+    "bootstrap": "^3.3.7",
+    "react": "^15.5.4",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.5.4",
+    "react-router-dom": "^4.1.2",
+    "query-string": "^5.0.0",
+    "serve": "^5.1.5",
+    "react-scripts": "0.9.5"
+  },
+  "scripts": {
+    "postinstall": "echo $NODE_ENV; if [ \"$NODE_ENV\" = \"production\" ]; then npm run build; fi",
+    "start": "if [ -z \"$PORT\" ]; then export PORT=8000; fi; if [ \"$NODE_ENV\" = \"production\" ]; then echo $PORT; serve -s build -p $PORT; else react-scripts start; fi",
+    "build": "react-scripts build",
+    "postbuild": "npm run delete-maps",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "delete-maps": "npm run delete-map-files && npm run delete-references-to-map-files",
+    "delete-map-files": "find ./build -name '*.map' -delete",
+    "delete-references-to-map-files": "find ./build \\( -name *.js -o -name *.css \\) -exec sed -i.back -E 's:/[\\*\\/]#\\ sourceMappingURL=main(\\.[0-9a-f]+)?\\.(css|js)\\.map(\\*\\/)?::g' {} +"
+  }
+}
